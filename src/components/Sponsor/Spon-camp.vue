@@ -1,51 +1,102 @@
 <template>
+  <div>
+    <SponsorHeader />
     <div class="manage-campaigns-container">
       <h1 class="title">Manage Campaigns</h1>
-  
+
       <!-- Form to Create a New Campaign -->
       <div class="form-container">
         <form @submit.prevent="createCampaign">
           <div class="form-group">
             <label for="campaign_name">Campaign Name</label>
-            <input type="text" class="form-control" id="campaign_name" v-model="newCampaign.name" required />
+            <input
+              type="text"
+              class="form-control"
+              id="campaign_name"
+              v-model="newCampaign.name"
+              required
+            />
           </div>
           <div class="form-group">
             <label for="description">Description</label>
-            <textarea class="form-control" id="description" v-model="newCampaign.description" rows="3" required></textarea>
+            <textarea
+              class="form-control"
+              id="description"
+              v-model="newCampaign.description"
+              rows="3"
+              required
+            ></textarea>
           </div>
           <div class="form-group">
             <label for="start_date">Start Date</label>
-            <input type="date" class="form-control" id="start_date" v-model="newCampaign.start_date" required />
+            <input
+              type="date"
+              class="form-control"
+              id="start_date"
+              v-model="newCampaign.start_date"
+              required
+            />
           </div>
           <div class="form-group">
             <label for="end_date">End Date</label>
-            <input type="date" class="form-control" id="end_date" v-model="newCampaign.end_date" required />
+            <input
+              type="date"
+              class="form-control"
+              id="end_date"
+              v-model="newCampaign.end_date"
+              required
+            />
           </div>
           <div class="form-group">
             <label for="budget">Budget</label>
-            <input type="number" class="form-control" id="budget" v-model="newCampaign.budget" step="0.01" required />
+            <input
+              type="number"
+              class="form-control"
+              id="budget"
+              v-model="newCampaign.budget"
+              step="0.01"
+              required
+            />
           </div>
           <div class="form-group">
             <label for="niche">Niche</label>
-            <select class="form-control" id="niche" v-model="newCampaign.niche" required>
-              <option v-for="niche in niches" :key="niche" :value="niche">{{ niche }}</option>
+            <select
+              class="form-control"
+              id="niche"
+              v-model="newCampaign.niche"
+              required
+            >
+              <option v-for="niche in niches" :key="niche" :value="niche">
+                {{ niche }}
+              </option>
             </select>
           </div>
           <div class="form-group">
             <label for="visibility">Visibility</label>
-            <select class="form-control" id="visibility" v-model="newCampaign.visibility" required>
+            <select
+              class="form-control"
+              id="visibility"
+              v-model="newCampaign.visibility"
+              required
+            >
               <option value="public">Public</option>
               <option value="private">Private</option>
             </select>
           </div>
           <div class="form-group">
             <label for="goals">Goals</label>
-            <textarea class="form-control" id="goals" v-model="newCampaign.goals" rows="3" required></textarea>
+            <textarea
+              class="form-control"
+              id="goals"
+              v-model="newCampaign.goals"
+              rows="3"
+              required
+            ></textarea>
           </div>
           <button type="submit" class="btn">Create Campaign</button>
         </form>
       </div>
-  
+
       <!-- Campaign Sections (Ongoing, Flagged, Past) -->
       <div class="campaigns-section">
         <!-- Ongoing Campaigns -->
@@ -64,15 +115,30 @@
                 <td>{{ campaign.name }}</td>
                 <td>{{ campaign.adRequestCount }}</td>
                 <td>
-                  <button @click="editCampaign(campaign.id)" class="btn-action">Edit</button>
-                  <button @click="confirmDelete(campaign.id)" class="btn-action btn-danger">Delete</button>
-                  <button @click="viewRequests(campaign.id)" class="btn-action btn-info">View Requests</button>
+                  <button
+                    @click="editCampaign(campaign.id)"
+                    class="btn-action"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    @click="confirmDelete(campaign.id)"
+                    class="btn-action btn-danger"
+                  >
+                    Delete
+                  </button>
+                  <button
+                    @click="viewRequests(campaign.id)"
+                    class="btn-action btn-info"
+                  >
+                    View Requests
+                  </button>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-  
+
         <!-- Flagged Campaigns -->
         <div class="campaign-list">
           <h2>Flagged Campaigns</h2>
@@ -87,14 +153,24 @@
               <tr v-for="campaign in campaigns.flagged" :key="campaign.id">
                 <td>{{ campaign.name }}</td>
                 <td>
-                  <button @click="editCampaign(campaign.id)" class="btn-action">Edit</button>
-                  <button @click="confirmDelete(campaign.id)" class="btn-action btn-danger">Delete</button>
+                  <button
+                    @click="editCampaign(campaign.id)"
+                    class="btn-action"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    @click="confirmDelete(campaign.id)"
+                    class="btn-action btn-danger"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-  
+
         <!-- Past Campaigns -->
         <div class="campaign-list">
           <h2>Past Campaigns</h2>
@@ -109,7 +185,12 @@
               <tr v-for="campaign in campaigns.past" :key="campaign.id">
                 <td>{{ campaign.name }}</td>
                 <td>
-                  <button @click="confirmDelete(campaign.id)" class="btn-action btn-danger">Delete</button>
+                  <button
+                    @click="confirmDelete(campaign.id)"
+                    class="btn-action btn-danger"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             </tbody>
@@ -117,62 +198,69 @@
         </div>
       </div>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        niches: [],
-        newCampaign: {
-          name: '',
-          description: '',
-          start_date: '',
-          end_date: '',
-          budget: '',
-          visibility: 'public',
-          niche: '',
-          goals: '',
-        },
-        campaigns: {
-          ongoing: [],
-          flagged: [],
-          past: []
-        },
-      };
+  </div>
+</template>
+
+<script>
+import SponsorHeader from './Spon-header.vue';
+
+export default {
+  components: {
+    SponsorHeader,
+  },
+  data() {
+    return {
+      niches: [],
+      newCampaign: {
+        name: '',
+        description: '',
+        start_date: '',
+        end_date: '',
+        budget: '',
+        visibility: 'public',
+        niche: '',
+        goals: '',
+      },
+      campaigns: {
+        ongoing: [],
+        flagged: [],
+        past: [],
+      },
+    };
+  },
+  async created() {
+    await this.fetchNiches();
+    await this.fetchCampaigns();
+  },
+  methods: {
+    async fetchNiches() {
+      const response = await this.$axios.get('/niches');
+      this.niches = response.data;
     },
-    async created() {
-      await this.fetchNiches();
-      await this.fetchCampaigns();
+    async fetchCampaigns() {
+      const response = await this.$axios.get('/manage_campaigns');
+      this.campaigns = response.data;
     },
-    methods: {
-      async fetchNiches() {
-        const response = await this.$axios.get('/niches');
-        this.niches = response.data;
-      },
-      async fetchCampaigns() {
-        const response = await this.$axios.get('/manage_campaigns');
-        this.campaigns = response.data;
-      },
-      async createCampaign() {
-        await this.$axios.post('/create_campaign', this.newCampaign);
-        this.fetchCampaigns(); // Refresh campaigns after creation
-      },
-      editCampaign(campaignId) {
-        this.$router.push(`/sponsor/campaign/${campaignId}/edit`);
-      },
-      viewRequests(campaignId) {
-        this.$router.push(`/sponsor/campaign/${campaignId}/requests`);
-      },
-      async confirmDelete(campaignId) {
-        if (confirm("Are you sure you want to delete this campaign?")) {
-          await this.$axios.delete(`/delete_campaign/${campaignId}`);
-          this.fetchCampaigns();
-        }
+    async createCampaign() {
+      await this.$axios.post('/create_campaign', this.newCampaign);
+      this.fetchCampaigns(); // Refresh campaigns after creation
+    },
+    editCampaign(campaignId) {
+      this.$router.push(`/sponsor/campaign/${campaignId}/edit`);
+    },
+    viewRequests(campaignId) {
+      this.$router.push(`/sponsor/campaign/${campaignId}/requests`);
+    },
+    async confirmDelete(campaignId) {
+      if (confirm('Are you sure you want to delete this campaign?')) {
+        await this.$axios.delete(`/delete_campaign/${campaignId}`);
+        this.fetchCampaigns();
       }
     },
-  };
-  </script>
+  },
+};
+</script>
+
   
   <style scoped>
     .manage-campaigns-container {/* Ensure it takes up a large portion of the screen */

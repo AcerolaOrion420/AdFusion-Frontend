@@ -1,4 +1,8 @@
 /* src/assets/profile.css - shared styling for profile pages */
+.container {
+  max-width: 800px;
+  margin-top: 80px; /* Push content below the header */
+}
 .profile-container {
     max-width: 800px;
     margin: 60px auto; /* Increased top margin for more breathing room */

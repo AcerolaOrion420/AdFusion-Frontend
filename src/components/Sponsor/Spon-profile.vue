@@ -1,5 +1,6 @@
-<!-- src/components/Sponsor/SponsorProfile.vue -->
 <template>
+  <div>
+    <SponsorHeader />
     <div class="container mt-5">
       <h1 class="title">Sponsor Profile</h1>
       <div class="profile-info">
@@ -60,41 +61,47 @@
         </form>
       </div>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        profile: {
-          username: '',
-          email: '',
-          company_name: '',
-          industry: '',
-          budget: 0.0,
-        },
-      };
-    },
-    async created() {
+  </div>
+</template>
+
+<script>
+import SponsorHeader from './Spon-header.vue';
+
+export default {
+  components: {
+    SponsorHeader,
+  },
+  data() {
+    return {
+      profile: {
+        username: '',
+        email: '',
+        company_name: '',
+        industry: '',
+        budget: 0.0,
+      },
+    };
+  },
+  async created() {
+    try {
+      const response = await this.$axios.get('/sponsor/profile');
+      this.profile = response.data;
+    } catch (error) {
+      console.error('Failed to load profile:', error);
+    }
+  },
+  methods: {
+    async handleProfileUpdate() {
       try {
-        const response = await this.$axios.get('/sponsor/profile');
-        this.profile = response.data;
+        await this.$axios.post('/sponsor/profile', this.profile);
+        alert("Profile updated successfully.");
       } catch (error) {
-        console.error('Failed to load profile:', error);
+        console.error('Failed to update profile:', error);
       }
     },
-    methods: {
-      async handleProfileUpdate() {
-        try {
-          await this.$axios.post('/sponsor/profile', this.profile);
-          alert("Profile updated successfully.");
-        } catch (error) {
-          console.error('Failed to update profile:', error);
-        }
-      },
-    },
-  };
-  </script>
+  },
+};
+</script>
   
   <style src="@/assets/profile.css"></style>
   

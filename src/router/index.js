@@ -10,6 +10,10 @@ import SponsorProfile from '../components/Sponsor/Spon-profile.vue';
 import SponsorCampaigns from '../components/Sponsor/Spon-camp.vue';
 import ViewRequests from '../components/Sponsor/Spon-viewreqs.vue';
 import EditCampaign from '../components/Sponsor/Spon-editcamp.vue';
+import InfluencerList from '../components/Sponsor/Spon-InfList.vue';
+import RequestAd from '../components/Sponsor/Spon-request.vue';
+import SponsorAdRequests from '../components/Sponsor/Spon-Adreqlist.vue';
+import SponsorPayments from '../components/Sponsor/Spon-Payments.vue';
 
 const routes = [
   { path: '/', name: 'Landing', component: Landing },
@@ -22,6 +26,10 @@ const routes = [
   { path: '/sponsor/manage-campaigns', name: 'SponsorCampaigns', component: SponsorCampaigns, meta: { requiresAuth: true } },
   { path: '/sponsor/campaign/:campaignId/requests', name: 'ViewRequests', component: ViewRequests, props: true, meta: { requiresAuth: true } },
   { path: '/sponsor/campaign/:campaignId/edit', name: 'EditCampaign',component: EditCampaign,props: true,meta: { requiresAuth: true }, },
+  { path: '/sponsor/influencers', name: 'InfluencerList', component: InfluencerList, meta: { requiresAuth: true } },
+  { path: '/sponsor/request-ad/:influencerId/:requestId?',name: 'RequestAd',component: RequestAd,props: true,meta: { requiresAuth: true } },
+  { path: '/sponsor/ad-requests', name: 'SponsorAdRequests', component: SponsorAdRequests, meta: { requiresAuth: true } },
+  { path: '/sponsor/payments',name: 'SponsorPayments',component: SponsorPayments, meta: { requiresAuth: true }, },
 ];
 
 const router = createRouter({
