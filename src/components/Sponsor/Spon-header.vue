@@ -19,7 +19,7 @@
           <router-link to="/sponsor/payments" class="nav-link">Payments</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/logout" class="nav-link">Logout</router-link>
+          <button @click="logout" class="nav-link logout-button">Logout</button>
         </li>
       </ul>
     </div>
@@ -29,6 +29,16 @@
 <script>
 export default {
   name: 'SponsorHeader',
+  methods: {
+    logout() {
+      // Clear session cookie and local storage
+      document.cookie = "session=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+      localStorage.clear();
+
+      // Redirect to the logout route
+      this.$router.push("/");
+    },
+  },
 };
 </script>
 
